@@ -35,7 +35,7 @@ object LogicCalculator {
       //val nnf = nnf(parse(line))
 
       println("TEST")
-      println("COMMIT TEST")
+      println()
     }
   }
   
