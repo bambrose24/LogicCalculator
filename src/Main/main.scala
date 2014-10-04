@@ -1,4 +1,4 @@
-package test_package
+package Main
 
 object LogicCalculator {
 
