@@ -1,41 +1,49 @@
 package test_package
 
-object LogicCalculator{
-  
-package logic
+object LogicCalculator {
 
-import java.io.File
-import java.io.FileReader
-import java.io.BufferedReader
+  import java.io.File
+  import java.io.FileReader
+  import java.io.BufferedReader
 
-sealed trait Logic
-sealed trait Expression extends Logic
-sealed trait Operator extends Logic
-sealed trait BinaryOp extends Operator
-sealed trait UnaryOp extends Operator
-sealed trait Literal extends Logic
+  sealed trait Logic
+  sealed trait Expression extends Logic
+  sealed trait Operator extends Logic
+  sealed trait BinaryOp extends Operator
+  sealed trait UnaryOp extends Operator
+  sealed trait Literal extends Logic
 
-case class LParen() extends Logic
-case class RParen() extends Logic
-case class And() extends Logic
-case class Or() extends Logic
-case class Not() extends Logic
-case class Implies() extends Logic
-case class Iff() extends Logic
-case class Exor() extends Logic
+  case class LParen() extends Logic
+  case class RParen() extends Logic
+  case class And() extends BinaryOp
+  case class Or() extends BinaryOp
+  case class Not() extends UnaryOp
+  case class Implies() extends BinaryOp
+  case class Iff() extends BinaryOp
+  case class Exor() extends BinaryOp
+  case class Exp2(e1: Expression, op: BinaryOp, e2: Expression) extends Expression
+  case class Exp1(op: UnaryOp, e: Expression)
 
-object Main {
-  def main(args: Array[String]): Unit = {
+  object Main {
+    def main(args: Array[String]): Unit = {
 
-    val file = new File("line.txt")
-    val reader = new BufferedReader(new FileReader(new File("line.txt")))
-    val line = reader.readLine()
-    reader.close()
+      val file = new File("line.txt")
+      val reader = new BufferedReader(new FileReader(new File("line.txt")))
+      val line = reader.readLine()
+      reader.close()
 
-    val nnf = solve(parse(line))
+      //val nnf = nnf(parse(line))
 
-    println("TEST")
+      println("TEST")
+    }
   }
-}
+  
+  /*def parse(str: String): Expression = {
+    
+  }*/
+  
+  /*def nnf(e: Exp): Exp = e match {
+    
+  }*/
 
 }
