@@ -47,3 +47,7 @@ object LogicCalculator {
   }*/
 
 }
+
+object Menu{
+ // Code for menu here 
+}
