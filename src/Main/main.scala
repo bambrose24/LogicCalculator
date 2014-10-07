@@ -21,18 +21,20 @@ object Main {
   case class Xor() extends BinaryOp
   case class Exp2(e1: Expression, op: BinaryOp, e2: Expression) extends Expression
   case class Exp1(op: UnaryOp, e: Expression) extends Expression
-  case class Literal(ch: Char) extends Logic
+  case class Literal(ch: Char) extends Expression
 
   def main(args: Array[String]): Unit = {
 
     val reader = new BufferedReader(new FileReader(new File("equation.txt")))
-    val line = reader.readLine()
+    val l = reader.readLine()
     reader.close()
 
-    val nnf = nnf(parse(line))
+    val line = parse(l)
+    val exp = makeExpression(line)
+    //val nnf = nnf(parse(line))
 
     println("TEST")
-    println(parse(line))
+    println(parse(l))
   }
 
   def parse(str: String): ArrayList[Logic] = {
@@ -65,23 +67,47 @@ object Main {
     terms
   }
 
-  def nnf(lst: ArrayList[Logic]): Expression = {
-    var i = 0
-    while (i < lst.size()){
-      
-      lst.get(i) match {
-        case LParen() => null // start a new expression, need to get list through right paren
-        case RParen() => null // end the new expression? not sure
-        case Implies() => null // use as an operator in an expression
-        case Iff() => null // use as an operator for Exp2
-        case Not() => null // use as operator for Exp1
-        case Or() => null // use as operator for Exp2
-        case And() => null // use as operator for Exp2
-        case Xor() => null // use as operator for Exp2
-        case Literal(x) => null // use as 
+  def makeExpression(lst: ArrayList[Logic]): Expression = {
+
+    lst.get(0) match {
+      case LParen() => { // start a new expression, need to get list through right paren
+        var temp = new ArrayList[Logic]()
+        var j = 1
+        while (lst.get(j) != RParen()) { // make a flag for if no RParen() shows up
+          temp.add(lst.get(j))
+        }
+        makeExpression(temp)
       }
-            
-      i += 1
+      case RParen() => { // end the new expression? not sure
+        println("SHOULD NOT HAVE GOTTEN HERE RPAREN")
+      }
+      case Implies() => { // use as an operator in an expression
+        println("SHOULD NOT HAVE GOTTEN HERE " + Implies())
+      }
+      case Iff() => { // use as an operator for Exp2
+
+      }
+      case Not() => { // use as operator for Exp1
+        
+      }
+      case Or() => { // use as operator for Exp2
+
+      }
+      case And() => { // use as operator for Exp2
+
+      }
+      case Xor() => { // use as operator for Exp2
+
+      }
+      case Literal(x) => { // check if solo, else make line to be processed recursively
+        if (lst.size() == 1) Literal(x)
+        else {
+          var j = 0
+          while (j < lst.size()) {
+
+          }
+        }
+      }
     }
     null
   }
